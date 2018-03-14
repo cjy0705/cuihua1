@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+		<style>
+			*{
+				margin:0;
+				padding:0;
+			}
+			html{
+				height: 100%;
+			}
+			body{
+				background: url('img/7.png') no-repeat;
+				height: 3150px;
+        		width: 100%;
+        		background-size: cover;
+			}
+			ul{
+				list-style:none;
+			}
+			.box{
+				width:300px;
+				height:300px;
+				margin:150px auto;
+
+				transform-style:preserve-3d;
+				transform:rotateX(20deg) rotateY(20deg);
+				position:relative;
+				animation:updown 10s linear 3s infinite;
+				-webkit-animation: updown 15s linear 3s infinite;
+			}
+			@keyframes updown{
+				0%{
+					transform:rotateX(20deg) rotateY(20deg);
+					-webkit-transform:rotateX(20deg) rotateY(20deg);
+				}
+				50%{
+					transform:rotateX(20deg) rotateY(380deg);
+					-webkit-transform:rotateX(20deg) rotateY(380deg);
+				}
+				100%{
+					transform:rotateX(380deg) rotateY(380deg);
+					-webkit-transform:rotateX(380deg) rotateY(380deg);
+				}
+			}
+			.box>div{
+				width:100%;
+				height:100%;
+				opacity:0.8;
+				position:absolute;
+			}
+			.box .top{
+				transform:translateY(-150px) rotateX(90deg);
+				-webkit-transform:translateY(-150px) rotateX(90deg);
+			}
+			.box .down{
+			/* 	background:deeppink; */
+				transform:translateY(150px) rotateX(-90deg);
+				-webkit-transform:translateY(150px) rotateX(-90deg);
+			}
+			.box .left{
+				/* background:green; */
+				transform:translateX(-150px) rotateY(-90deg);
+				-webkit-transform:translateX(-150px) rotateY(-90deg);
+			}
+			.box .right{
+			/* 	background:yellowgreen; */
+				transform:translateX(150px) rotateY(90deg);
+				-webkit-transform:translateX(150px) rotateY(90deg);
+			}
+			.box  .front{
+			/* 	background:blue; */
+				transform:translateZ(150px);
+				-webkit-transform:translateZ(150px);
+			}
+			.box .behind{
+				/* background:skyblue; */
+				transform:translateZ(-150px);
+				-webkit-transform:translateZ(-150px);
+			}
+			.box ul li{
+				float:left;
+				width:100px;
+				height:100px;
+				border:1px solid #fff;
+				box-sizing:border-box;
+				position:relative;
+				background-size:300px 300px;
+			}
+		</style>
+    </head>
+    <body>
+		<div class="box">
+			<div class="top"></div>
+			<div class="down"></div>
+			<div class="left"></div>
+			<div class="right"></div>
+			<div class="front"></div>
+			<div class="behind"></div>
+		</div>
+		<audio src='img/hh.mp3' autoplay>
+  <source src="img/1.mp3" />
+  <source src="img/1.wav" />
+  <source src="img/1.wma" />
+  对不起,您的破浏览器不支持音频播放
+</audio>
+
+		<script src="jquery.js"></script>
+		<script>
+			var box = $(".box");
+			var divs = box.children();
+			var arrColor=['1 (1).png',"1 (2).png","1 (3).png","1 (4).png","1 (5).png","1 (6).png"]
+			//遍历每一个DIV  然后再里面先创建一个UL,然后再创建9个LI
+			var x,y;
+			divs.each(function(index,el){
+				var ul = $("<ul></ul>");
+				for(var i=0;i<9;i++){
+					x=i%3
+					//0 1 2 0 1 2 
+					
+					//0 0 0 1 1 1   
+					y=Math.floor(i/3)
+					var li = $("<li></li>");
+					li.css("backgroundImage",'url("img/'+arrColor[index]+'")')
+					.css("background-position",(-x*100)+'px '+(-y*100)+'px');
+					ul.append(li);   //把9个LI分别追加到UL里
+				}
+				$(el).append(ul);  //把ul追加到每一个DIV里
+			})
+
+		    var arrPostion=[];
+		    for(var i=0;i<54;i++){
+		    	arrPostion.push(parseInt(Math.random()*350));
+		    }
+		    console.log(arrPostion);
+		    $("li").each(function(index,el){
+		    	$(el).css({"left":arrPostion[index],"top":arrPostion[index]});
+		    })
+		    $("li").each(function(index, el) {
+		    	$(el).animate({"left": 0, "top": 0}, 3000)
+		    });
+		</script>
+    </body>
+</html>
